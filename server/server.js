@@ -17,12 +17,12 @@ let waitingPlayer = null;
 
 io.on("connection",(socket)=>{
     if(waitingPlayer){
-        //start game
+        // ゲーム開始
         new RpsGame(waitingPlayer,socket);
         waitingPlayer = null;
     } else {
         waitingPlayer = socket;
-        waitingPlayer.emit("message","Waiting for an opponent");
+        waitingPlayer.emit("message","参加プレイヤー待機中...");
     }
 
 

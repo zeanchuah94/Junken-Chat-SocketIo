@@ -29,7 +29,7 @@ const addButtonListeners = () => {
     })
 };
 
-writeEvent("Welcome to RPS");
+writeEvent("チャット式じゃんけんゲーム");
 
 const socket = io();
 socket.on("message",writeEvent);

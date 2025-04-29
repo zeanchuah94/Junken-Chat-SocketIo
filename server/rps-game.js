@@ -4,7 +4,7 @@ class RpsGame {
         this._players = [p1,p2];
         this._turns = [null,null];
 
-        this._sendToPlayers("デュエル開始!");
+        this._sendToPlayers("ゲーム開始!<br>最初はぐー、じゃんけん!!!!!");
 
         this._players.forEach( (player,idx) => {
             player.on("turn",(turn) => {
@@ -25,19 +25,40 @@ class RpsGame {
 
     _onTurn(playerIndex,turn){
         this._turns[playerIndex] = turn;
-        this._sendToPlayer(playerIndex,`You selected ${turn}`);
+        this._sendToPlayer(playerIndex,`あなたは ${this._getTurnDisplayName(turn)} を選びました`);
         this._checkGameOver();
     }
 
     _checkGameOver(){
         const turns = this._turns;
+        
+        const p0_resultName = this._getTurnDisplayName(turns[0]);
+        const p1_resultName = this._getTurnDisplayName(turns[1]);
 
         if(turns[0] && turns[1]){
-            this._sendToPlayers("Game over " + turns.join(' : '));
+            this._sendToPlayers("ゲーム終了");
+            this._sendToPlayers(`あなたは ${p0_resultName} を出しました`);
+            this._sendToPlayers(`相手は ${p1_resultName} を出しました`);
             this._getGameResult();
             this._turns = [null,null];
-            this._sendToPlayers('Next Round!!!!!');
+            this._sendToPlayers('次に行きましょう!<br>最初はぐー、じゃんけん!!!!!');
         }
+    }
+
+    _getTurnDisplayName(turn){
+        var displayName = "";
+        switch(turn){
+            case "rock":
+                displayName = "グー";
+                break;
+            case "paper":
+                displayName = "パー";
+                break;
+            case "scissors":
+                displayName = "チョキ";
+                break;
+        }
+        return displayName;
     }
 
     _getGameResult(){
@@ -48,24 +69,21 @@ class RpsGame {
 
         switch(distance){
             case 0:
-                //draw
-                this._sendToPlayers("Draw!");
+                this._sendToPlayers("引き分け！");
                 break;
             case 1:
-                // p0 won
                 this._sendWinMessage(this._players[0],this._players[1]);
                 break;
             case 2:
-                // p1 won
                 this._sendWinMessage(this._players[1],this._players[0]);
                 break;
         }
     }
 
     _sendWinMessage(winner,loser){
-        winner.emit("message","You won!");
+        winner.emit("message","あなたの勝ち！");
         
-        loser.emit("message","You lose!");
+        loser.emit("message","あなたの負け！");
     }
 
     _decodeTurn(turn){

@@ -1,5 +1,4 @@
 body {
-    font-family: "Helvetica Neue", sans-serif;
     margin: 0;
     padding: 0;
   }
@@ -16,7 +15,7 @@ body {
     padding: 3px 15px;
     color: white;
     line-height: 25px;
-    background-color: #00bcd4;
+    background-color: #2383ff;
     border: none;
     border-radius: 2px;
     cursor: pointer;
@@ -26,17 +25,20 @@ body {
   }
   
   button:hover {
-      background-color: #79d7e4;
+      background-color: #1c47d6;
   }
   
   button.turn {
     color: rgb(255, 64, 129);
     background-color: white;
     box-shadow:none;
+    font-size: 20px;
+    border: 1px solid rgb(255, 64, 129);
+    border-radius: 20px;
   }
   
   button.turn:hover {
-    background-color: #eaeaea;
+    background-color: #ffdff2;
   }
   
   .rps-wrapper {
